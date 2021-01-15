@@ -2,6 +2,9 @@
 import findspark
 findspark.init()
 
+os.environ['SPARK_HOME'] = "/opt/spark/"
+sys.path.append("/opt/spark/python/")
+
 from kafka import KafkaConsumer
 from pyspark import SparkContest
 from pyspark.streaming import StreamingContext
