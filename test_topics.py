@@ -27,7 +27,7 @@ def calculate(data):
 def handler(message):
 	records = message.collect()
 	for record in records:
-    	producer.send('spark_out', str(record))
+		producer.send('spark_out', str(record))
 		producer.flush()
 
 
