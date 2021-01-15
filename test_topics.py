@@ -14,6 +14,7 @@ sc = SparkContext.getOrCreate()
 
 ssc = StreamingContext(sc,60)
 kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPIC:1})
+producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 def get_power(data):
 	#data = json.loads(data)
@@ -23,9 +24,13 @@ def calculate(data):
 	data = json.loads(data)
 	return data["powers"]*2
 
-#def handler(message):
-#	records = message.collect()
-	
+def handler(message):
+	records = message.collect()
+	for record in records:
+    	producer.send('spark_out', str(record))
+		producer.flush()
+
+
 lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_power(x[1]), calculate(x[1])))
 lines.pprint()
 
