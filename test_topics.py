@@ -1,3 +1,7 @@
+#IMPORTANT
+import findspark
+findspark.init()
+
 from kafka import KafkaConsumer
 from pyspark import SparkContest
 from pyspark.streaming import StreamingContext
