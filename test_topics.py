@@ -1,4 +1,6 @@
-#IMPORTANT
+import os
+import sys
+
 import findspark
 findspark.init()
 
