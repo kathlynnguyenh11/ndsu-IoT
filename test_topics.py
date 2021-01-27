@@ -29,6 +29,18 @@ def calculate(data):
 	data = json.loads(data)
 	return data["powers"]*2
 
+def clean_data(data):
+	data = data.replace('"', '')
+	output = {}
+
+	lst = data.split(",")
+
+	for item in lst:
+		info = item.split(":")
+		output[info[0]] = info[1]
+
+	return output
+
 def handler(message):
 	records = message.collect()
 	for record in records:
@@ -36,7 +48,7 @@ def handler(message):
 		producer.flush()
 
 def main():
-	lines = kafkaStream.map(lambda x: "type: {}, data: {}".format(get_type(x[1]), x[1]))
+	lines = kafkaStream.map(lambda x: "type: {}, old data: {}, new data type {}".format(get_type(x[1]), x[1]), get_type(clean_data(x[1])))
 	lines.pprint()
 	#lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
 	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
