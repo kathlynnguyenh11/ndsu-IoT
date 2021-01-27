@@ -43,7 +43,7 @@ def handler(message):
 		producer.flush()
 
 
-lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_power(x[1]), calculate(x[1])))
+lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
 lines.pprint()
 
 ssc.start()
