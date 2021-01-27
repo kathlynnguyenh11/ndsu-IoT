@@ -9,7 +9,7 @@ import json
 KAFKA_TOPICS = "solar-module-raw"
 KAFKA_BROKERS = "localhost:9092"
 ZOOKEEPER = "localhost:2181"
-OUTPUT = "spark_out"
+OUTPUT = "topic_for_testing"
 
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
@@ -43,7 +43,7 @@ def handler(message):
 		print(record)
 		print("----")
 
-		producer.send('spark_out', bytes(record[1].encode('utf-8')))
+		producer.send(OUTPUT, bytes(record[1].encode('utf-8')))
 		producer.flush()
 
 def main():
