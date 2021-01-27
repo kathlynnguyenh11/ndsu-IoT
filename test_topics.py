@@ -18,13 +18,6 @@ ssc = StreamingContext(sc,60)
 kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
-def remove_existing_log():
-	if os.path.exists("logs.txt"):
-  		os.remove("logs.txt")
-		
-	else:
-		print("No log")
-		
 def get_type(data):
 	return data
 
@@ -43,8 +36,6 @@ def handler(message):
 		producer.flush()
 
 def main():
-    remove_existing_log()
-
 	lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
 
 	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
