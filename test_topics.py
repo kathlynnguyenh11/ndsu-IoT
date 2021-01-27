@@ -21,7 +21,7 @@ producer = KafkaProducer(bootstrap_servers='localhost:9092')
 def remove_existing_log():
 	if os.path.exists("logs.txt"):
   		os.remove("logs.txt")
-		print("Deleted old log")
+		
 	else:
 		print("No log")
 		
