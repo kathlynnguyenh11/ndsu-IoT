@@ -9,13 +9,8 @@ import json
 KAFKA_TOPICS = "solar-module-raw"
 KAFKA_BROKERS = "localhost:9092"
 ZOOKEEPER = "localhost:2181"
-
 OUTPUT = "spark_out"
 
-sc = SparkContext.getOrCreate()
-
-ssc = StreamingContext(sc,60)
-kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 def get_type(data):
@@ -48,8 +43,17 @@ def handler(message):
 		producer.flush()
 
 def main():
+	sc = SparkContext.getOrCreate()
+	ssc = StreamingContext(sc,60)
+
+	kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
+
 	lines = kafkaStream.map(lambda x: "type: {}, old data: {}, new data type {}".format(get_type(x[1]), x[1], get_type(clean_data(x[1]))))
 	lines.pprint()
+
+	kvs = KafkaUtils.createDirectStream(ssc, [KAFKA_TOPICS], {"metadata.broker.list": KAFKA_BROKERS})
+	kvs.foreachRDD(handler)
+
 	#lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
 	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
 	ssc.start()
