@@ -19,7 +19,7 @@ kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 def get_type(data):
-	return data
+	return type(data)
 
 def get_power(data):
 	#data = json.loads(data)
