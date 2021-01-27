@@ -42,7 +42,8 @@ def handler(message):
 		print(type(record))
 		print(record)
 		print("----")
-		producer.send('spark_out', bytes(record.encode('utf-8')))
+
+		producer.send('spark_out', bytes(record[1].encode('utf-8')))
 		producer.flush()
 
 def main():
