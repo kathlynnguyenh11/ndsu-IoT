@@ -11,7 +11,7 @@ from pyspark import SparkConf, SparkContext
 from kafka import KafkaConsumer, KafkaProducer
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
-import simplejson as json
+import json
 
 KAFKA_TOPICS = "solar-module-raw"
 KAFKA_BROKERS = "localhost:9092"
