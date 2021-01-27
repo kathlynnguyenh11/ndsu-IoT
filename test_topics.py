@@ -25,7 +25,7 @@ ssc = StreamingContext(sc,60)
 kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPIC:1})
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
-def get_type(data);
+def get_type(data):
 	return data
 
 def get_power(data):
