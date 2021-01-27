@@ -7,8 +7,8 @@
 #os.environ['SPARK_HOME'] = "/opt/spark/"
 #sys.path.append("/opt/spark/python/")
 
-from kafka import KafkaConsumer
-from pyspark import SparkContest
+from pyspark import SparkConf, SparkContext 
+from kafka import KafkaConsumer, KafkaProducer
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 import simplejson as json
