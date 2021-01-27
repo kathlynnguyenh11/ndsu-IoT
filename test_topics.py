@@ -1,11 +1,11 @@
-import os
-import sys
+#import os
+#import sys
 
-import findspark
-findspark.init()
+#import findspark
+#findspark.init()
 
-os.environ['SPARK_HOME'] = "/opt/spark/"
-sys.path.append("/opt/spark/python/")
+#os.environ['SPARK_HOME'] = "/opt/spark/"
+#sys.path.append("/opt/spark/python/")
 
 from kafka import KafkaConsumer
 from pyspark import SparkContest
