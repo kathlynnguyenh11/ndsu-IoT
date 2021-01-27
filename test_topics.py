@@ -40,6 +40,7 @@ def handler(message):
 	records = message.collect()
 	for record in records:
 		print(type(record))
+		print(record)
 		print("----")
 		producer.send('spark_out', bytes(record.encode('utf-8')))
 		producer.flush()
