@@ -39,7 +39,9 @@ def clean_data(data):
 def handler(message):
 	records = message.collect()
 	for record in records:
-		producer.send('spark_out', str(record))
+		print(type(record))
+		print("----")
+		producer.send('spark_out', bytes(record.encode('utf-8')))
 		producer.flush()
 
 def main():
