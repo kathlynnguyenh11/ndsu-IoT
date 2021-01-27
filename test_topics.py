@@ -36,12 +36,10 @@ def handler(message):
 		producer.flush()
 
 def main():
-    lines = kafkaStream.map(lambda x: get_type(x))
-    #lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
-	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
-	
+    lines = kafkaStream.map(lambda x: x[1])
 	lines.pprint()
-
+	#lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
+	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
 	ssc.start()
 	ssc.awaitTermination()	
 
