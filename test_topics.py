@@ -23,7 +23,7 @@ def remove_existing_log():
   		os.remove("logs.txt")
 		print("Deleted old log")
 	else:
-  		print("No log")
+		print("No log")
 		
 def get_type(data):
 	return data
@@ -53,6 +53,6 @@ def main():
 
 	ssc.start()
 	ssc.awaitTermination()	
-	
+
 if __name__== "__main__":
    main()
