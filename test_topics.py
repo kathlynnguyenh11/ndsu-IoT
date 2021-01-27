@@ -1,11 +1,4 @@
-#import os
-#import sys
-
-#import findspark
-#findspark.init()
-
-#os.environ['SPARK_HOME'] = "/opt/spark/"
-#sys.path.append("/opt/spark/python/")
+import os
 
 from pyspark import SparkConf, SparkContext 
 from kafka import KafkaConsumer, KafkaProducer
@@ -25,6 +18,13 @@ ssc = StreamingContext(sc,60)
 kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
+def remove_existing_log():
+	if os.path.exists("logs.txt"):
+  		os.remove("logs.txt")
+		print("Deleted old log")
+	else:
+  		print("No log")
+		
 def get_type(data):
 	return data
 
@@ -42,10 +42,17 @@ def handler(message):
 		producer.send('spark_out', str(record))
 		producer.flush()
 
+def main():
+    remove_existing_log()
 
-lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
-lines.pprint()
+	lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
 
-ssc.start()
-ssc.awaitTermination()
+	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
+	
+	lines.pprint()
 
+	ssc.start()
+	ssc.awaitTermination()	
+	
+if __name__== "__main__":
+   main()
