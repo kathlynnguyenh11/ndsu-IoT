@@ -45,8 +45,11 @@ def handler(message):
 
 		#Clean stream
 		cleaned_record = clean_data(record[1])
+		print(type(cleaned_record))
+		print(cleaned_record)
+		#print("----")
 
-		producer.send(OUTPUT, bytes(cleaned_record["power"].encode('utf-8')))
+		producer.send(OUTPUT, bytes(record[1].encode('utf-8')))
 		producer.flush()
 
 def main():
