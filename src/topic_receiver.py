@@ -50,10 +50,9 @@ def main():
 	sc = SparkContext.getOrCreate()
 	ssc = StreamingContext(sc,60)
 
-	kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
-
-	lines = kafkaStream.map(lambda x: "type: {}, old data: {}, new data type {}".format(get_type(x[1]), x[1], get_type(clean_data(x[1]))))
-	lines.pprint()
+	#kafkaStream = KafkaUtils.createStream(ssc, ZOOKEEPER, "spark-streaming", {KAFKA_TOPICS:1})
+	#lines = kafkaStream.map(lambda x: "type: {}, old data: {}, new data type {}".format(get_type(x[1]), x[1], get_type(clean_data(x[1]))))
+	#lines.pprint()
 
 	kvs = KafkaUtils.createDirectStream(ssc, [KAFKA_TOPICS], {"metadata.broker.list": KAFKA_BROKERS})
 	kvs.foreachRDD(handler)
