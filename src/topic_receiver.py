@@ -39,11 +39,14 @@ def clean_data(data):
 def handler(message):
 	records = message.collect()
 	for record in records:
-		print(type(record))
-		print(record)
-		print("----")
+		#print(type(record))
+		#print(record)
+		#print("----")
 
-		producer.send(OUTPUT, bytes(record[1].encode('utf-8')))
+		#Clean stream
+		cleaned_record = clean_data(record[1])
+
+		producer.send(OUTPUT, bytes(cleaned_record["power"].encode('utf-8')))
 		producer.flush()
 
 def main():
