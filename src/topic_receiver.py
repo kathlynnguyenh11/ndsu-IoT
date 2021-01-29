@@ -1,4 +1,5 @@
 import os
+import re
 
 from pyspark import SparkConf, SparkContext 
 from kafka import KafkaConsumer, KafkaProducer
@@ -13,22 +14,23 @@ OUTPUT = "topic_for_testing"
 
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
-def get_type(data):
-	return type(data)
-
 def get_power(data):
-	#data = json.loads(data)
+	data = json.loads(data)
 	return data["power"]
 
 def calculate(data):
 	data = json.loads(data)
 	return data["powers"]*2
 
+#Replaced by get_power func
 def clean_data(data):
-	data = data.replace('"', '')
+	data = re.sub('["\'{}]', '',   data)
+	print(data)
+
 	output = {}
 
 	lst = data.split(",")
+	print(lst)
 
 	for item in lst:
 		info = item.split(":")
@@ -39,17 +41,10 @@ def clean_data(data):
 def handler(message):
 	records = message.collect()
 	for record in records:
-		#print(type(record))
-		#print(record)
-		#print("----")
+		power = get_power(record[1])
+		processed_power = power*2
 
-		#Clean stream
-		cleaned_record = clean_data(record[1])
-		print(type(cleaned_record))
-		print(cleaned_record)
-		#print("----")
-
-		producer.send(OUTPUT, bytes(record[1].encode('utf-8')))
+		producer.send(OUTPUT, bytes(str(processed_power).encode('utf-8')))
 		producer.flush()
 
 def main():
@@ -60,11 +55,10 @@ def main():
 	#lines = kafkaStream.map(lambda x: "type: {}, old data: {}, new data type {}".format(get_type(x[1]), x[1], get_type(clean_data(x[1]))))
 	#lines.pprint()
 
+	#Send data to thingsBoard topic
 	kvs = KafkaUtils.createDirectStream(ssc, [KAFKA_TOPICS], {"metadata.broker.list": KAFKA_BROKERS})
 	kvs.foreachRDD(handler)
 
-	#lines = kafkaStream.map(lambda x: "old value: {}".format(get_type(x[1])))
-	#lines = kafkaStream.map(lambda x: "Initial value: {}, New value: {}".format(get_type(x[1]), calculate(x[1])))
 	ssc.start()
 	ssc.awaitTermination()	
 
