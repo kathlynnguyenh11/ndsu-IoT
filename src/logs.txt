@@ -1,0 +1,103 @@
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":3.5,"name":"Module 3","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 2","panel":"Panel 1"}')
+----
+<class 'tuple'>
+(None, '{"power":5,"name":"Module 1","panel":"Panel 1"}')
+----
+Traceback (most recent call last):
+  File "/home/ubuntu/apps/ndsu-IoT/src/topic_receiver.py", line 66, in <module>
+    main()
+  File "/home/ubuntu/apps/ndsu-IoT/src/topic_receiver.py", line 63, in main
+    ssc.awaitTermination()	
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 192, in awaitTermination
+  File "/opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1255, in __call__
+  File "/opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 985, in send_command
+  File "/opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1152, in send_command
+  File "/usr/lib/python3.7/socket.py", line 589, in readinto
+    return self._sock.recv_into(b)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 270, in signal_handler
+KeyboardInterrupt
