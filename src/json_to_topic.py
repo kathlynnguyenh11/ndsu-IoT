@@ -21,14 +21,13 @@ def foo():
 #  time.sleep(1)
 
 def send_message(data):
-    producer.send(TOPIC, bytes(str(data).encode('utf-8')))
+    producer.send(TOPIC, bytes(data, encoding='utf-8'))
     producer.flush()
     print("SENT")
 
 with open(filename,'r') as f:
     try: 
         #data = json.loads(f.read())
-    
         send_message(f.read())
 
     except Exception as e:
