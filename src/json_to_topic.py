@@ -1,24 +1,13 @@
 import json 
 from kafka import KafkaProducer
-
-TOPIC = "topic_by_json"
-
-
-producer = KafkaProducer(bootstrap_servers='localhost:9092')
-#filename = "/home/ubuntu/apps/ndsu-IoT/data/json/test.json"
-filename = "/home/ubuntu/apps/ndsu-IoT/data/json/test2.json"
-
 import sys, json
-struct = {}
-
 import time
 
-def foo():
-  print(time.ctime())
+TOPIC = "topic_by_json"
+INTERVAL = 3
 
-#while True:
-#  foo()
-#  time.sleep(1)
+producer = KafkaProducer(bootstrap_servers='localhost:9092')
+filename = "/home/ubuntu/apps/ndsu-IoT/data/json/test2.json"
 
 def send_message(key_info, value_info):
     #producer.send(TOPIC, bytes(data, encoding='utf-8'))
@@ -29,9 +18,11 @@ def send_message(key_info, value_info):
 with open(filename,'r') as f:
     try: 
         data = json.loads(f.read())
-        for info in data:
-            print(type(data[info]))
-            send_message(info, data[info])
+        while True:
+            print(str(INTERVAL) + " passed")
+            for info in data:
+                send_message(info, data[info])
+            time.sleep(INTERVAL)
 
     except Exception as e:
         print('Exception in publishing message')
