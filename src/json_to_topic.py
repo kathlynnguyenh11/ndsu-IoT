@@ -20,22 +20,21 @@ def foo():
 #  foo()
 #  time.sleep(1)
 
-def send_message(data):
-    producer.send(TOPIC, bytes(data, encoding='utf-8'))
+def send_message(key_info, value_info):
+    #producer.send(TOPIC, bytes(data, encoding='utf-8'))
+    producer.send(TOPIC, key=bytes(str(key_info), encoding='utf-8'), value=bytes(str(value_info), encoding='utf-8'))
     producer.flush()
     print("SENT")
 
 with open(filename,'r') as f:
     try: 
-        #data = json.loads(f.read())
-        send_message(f.read())
+        data = json.loads(f.read())
+        for info in data:
+            print(type(data[info]))
+            send_message(info, data[info])
 
     except Exception as e:
         print('Exception in publishing message')
         print(str(e))
 
-    #producer = KafkaProducer(
-    #    bootstrap_servers='localhost:9092',
-    #    value_serializer=lambda v: json.loads(f.read()).encode('utf-8')
-    #)
    
